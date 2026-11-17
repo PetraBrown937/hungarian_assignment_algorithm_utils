@@ -45,3 +45,10 @@ from the row minimum so the reduced costs stay non-negative.
 - `solve(costs)` — returns a list of `(row, column)` pairs. `costs` is a
   sequence of equal-length numeric sequences.
 - `AssignmentError` — raised for malformed input.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
